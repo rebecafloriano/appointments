@@ -1,16 +1,41 @@
 import {useState, type SyntheticEvent } from 'react'
-import { type Doctor } from '../types/clinic'
+import { type Appointment, type Doctor } from '../types/clinic'
 import { generateTimeSlots } from '../utils/timeUtils';
 
-export const AppointmentPanel = () => {
+
+interface AppointmentPanelProps {
+    onSaveAppointment: (newApp: Omit<Appointment, 'id'>) => void
+    appointments: Appointment[]
+    doctors: Doctor[]
+}
+
+
+
+export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors}: AppointmentPanelProps) => {
     const [patientName, setPatientName] = useState('')
     const [selectedDoctorId, setSelectedDoctorId] = useState<Doctor['id']>('');
     const [date, setDate] = useState('')
     const [startTime, setStartTime] = useState('')
+    
 
    
     // Guardamos a lista gerada numa variável para usar no JSX
-    const availableSlots = generateTimeSlots();
+    const allSlots = generateTimeSlots();
+
+    const getAvailableSlotsForDoctor = () => {
+        if (!selectedDoctorId || !date) return allSlots
+
+        return allSlots.filter(slot => {
+            const jaEstaOcupado = appointments.some(app => 
+                String(app.doctorId) === String(selectedDoctorId) &&
+                app.date === date &&
+                app.startTime === slot
+            )
+            return !jaEstaOcupado
+        })
+    }
+
+    const slotsFiltrados = getAvailableSlotsForDoctor()
 
     // 2. FUNÇÃO UTILITÁRIA: Calcula o fim baseado no início escolhido (+35 min)
     const calculateEndTime = (timeString: string): string => {
@@ -29,17 +54,17 @@ export const AppointmentPanel = () => {
         if (!patientName || !selectedDoctorId || !date || !startTime) {
             alert("Por favor, preencha todos os campos.");
             return;
-        }
-
+        } 
         const newAppointment = {
-            patientName,
+            id: Date.now(),
+            patientName: patientName,
             doctorId: selectedDoctorId,
-            date,
-            startTime,
+            date: date,
+            startTime: startTime,
             endTime: calculateEndTime(startTime) // O fim continua a ser calculado sozinho!
         };
 
-        console.log("Agendamento criado no slot de 35min:", newAppointment);
+        onSaveAppointment(newAppointment);
 
         // Limpar os campos
         setPatientName('');
@@ -48,7 +73,6 @@ export const AppointmentPanel = () => {
         setStartTime('');
     };
 
-    const [selectDoctorId, setSelectDoctorId] = useState<Doctor['id']>('')
     return (
         <form onSubmit={handleConfirm} className="flex flex-col gap-5">
             <h2 className="text-xl mb-2 self-center font-semibold text-gray-800">Painel de Agendamento</h2>
@@ -67,13 +91,15 @@ export const AppointmentPanel = () => {
                 <select
                     className="p-1 w-full border border-gray-300 rounded-md" 
                     id="doctors"
-                    value={selectDoctorId}
-                    onChange={(e)=> setSelectDoctorId(e.target.value)}
+                    value={selectedDoctorId}
+                    onChange={(e)=> setSelectedDoctorId(e.target.value)}
                 >
                     <option value="">Escolha um médico...</option>
-                    <option value="1">Dr. Ramos</option>
-                    <option value="2">Dr. Neves</option>
-                    <option value="3">Dra. Souza</option>
+                    {doctors.map((medico) => (
+                        <option key={medico.id} value={medico.id}>{medico.name} - {medico.specialty}</option>
+                    )
+                    )}
+                    
                 </select>              
             </div>
             <div>
@@ -94,9 +120,15 @@ export const AppointmentPanel = () => {
                     id="startTime"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
+                    disabled={!selectedDoctorId || !date}
                 >
-                    <option value="">Escolha um horário...</option>
-                    {availableSlots.map(slot => (
+                    <option value="">
+                        {!selectedDoctorId || !date
+                            ? 'Selecione um médico e a data...'
+                            : 'Escolha um horário...'
+                        }
+                    </option>
+                    {slotsFiltrados.map(slot => (
                         <option key={slot} value={slot}>
                             {slot} às {calculateEndTime(slot)}
                         </option>

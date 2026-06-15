@@ -1,12 +1,12 @@
 export interface Doctor {
-    id: string | number
+    id: string
     name: string
     specialty: string
 } 
 
 export interface Appointment {
     id: string | number
-    pacientName: string
+    patientName: string
     doctorId: string | number
     date: string
     startTime: string
