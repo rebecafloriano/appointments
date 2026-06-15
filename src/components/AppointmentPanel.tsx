@@ -1,6 +1,7 @@
-import {useState, type SyntheticEvent } from 'react'
+import { useState, type SyntheticEvent } from 'react'
 import { type Appointment, type Doctor } from '../types/clinic'
 import { generateTimeSlots } from '../utils/timeUtils';
+import { dataAtual } from '../utils/dateUtils';
 
 
 interface AppointmentPanelProps {
@@ -11,33 +12,48 @@ interface AppointmentPanelProps {
 
 
 
-export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors}: AppointmentPanelProps) => {
+export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors }: AppointmentPanelProps) => {
     const [patientName, setPatientName] = useState('')
     const [selectedDoctorId, setSelectedDoctorId] = useState<Doctor['id']>('');
     const [date, setDate] = useState('')
     const [startTime, setStartTime] = useState('')
-    
 
-   
-    // Guardamos a lista gerada numa variável para usar no JSX
+
+
     const allSlots = generateTimeSlots();
 
     const getAvailableSlotsForDoctor = () => {
         if (!selectedDoctorId || !date) return allSlots
 
+        const agora = new Date()
+        const horaAtual = agora.getHours()
+        const minutoAtual = agora.getMinutes()
+
+        const hoje = dataAtual();
+
+
+
         return allSlots.filter(slot => {
-            const jaEstaOcupado = appointments.some(app => 
+            const jaEstaOcupado = appointments.some(app =>
                 String(app.doctorId) === String(selectedDoctorId) &&
                 app.date === date &&
                 app.startTime === slot
             )
-            return !jaEstaOcupado
+            if (jaEstaOcupado) return false
+            
+            if (date === hoje) {
+                const [slotHora, slotMinuto] = slot.split(':').map(Number)
+                
+                if (slotHora < horaAtual || (slotHora === horaAtual && slotMinuto <= minutoAtual)) {
+                    return false
+                }
+            }
+            return true
         })
     }
 
     const slotsFiltrados = getAvailableSlotsForDoctor()
 
-    // 2. FUNÇÃO UTILITÁRIA: Calcula o fim baseado no início escolhido (+35 min)
     const calculateEndTime = (timeString: string): string => {
         if (!timeString) return '';
         const [hours, minutes] = timeString.split(':').map(Number);
@@ -54,19 +70,18 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors}: Ap
         if (!patientName || !selectedDoctorId || !date || !startTime) {
             alert("Por favor, preencha todos os campos.");
             return;
-        } 
+        }
         const newAppointment = {
-            id: Date.now(),
             patientName: patientName,
             doctorId: selectedDoctorId,
             date: date,
             startTime: startTime,
-            endTime: calculateEndTime(startTime) // O fim continua a ser calculado sozinho!
+            endTime: calculateEndTime(startTime)
         };
 
         onSaveAppointment(newAppointment);
 
-        // Limpar os campos
+
         setPatientName('');
         setSelectedDoctorId('');
         setDate('');
@@ -82,25 +97,25 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors}: Ap
                     className="p-1 w-full border border-gray-300 rounded-md"
                     type="text"
                     value={patientName}
-                    onChange={(e)=>{setPatientName(e.target.value)}}
-                    
+                    onChange={(e) => { setPatientName(e.target.value) }}
+
                 />
             </div>
             <div className="flex flex-col">
                 <label className="text-md" htmlFor="doctors">Médico</label>
                 <select
-                    className="p-1 w-full border border-gray-300 rounded-md" 
+                    className="p-1 w-full border border-gray-300 rounded-md"
                     id="doctors"
                     value={selectedDoctorId}
-                    onChange={(e)=> setSelectedDoctorId(e.target.value)}
+                    onChange={(e) => setSelectedDoctorId(e.target.value)}
                 >
                     <option value="">Escolha um médico...</option>
                     {doctors.map((medico) => (
                         <option key={medico.id} value={medico.id}>{medico.name} - {medico.specialty}</option>
                     )
                     )}
-                    
-                </select>              
+
+                </select>
             </div>
             <div>
                 <label className="text-md" htmlFor="date">Data da Consulta</label>
@@ -109,10 +124,9 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors}: Ap
                     type="date"
                     id="date"
                     value={date}
-                    onChange={(e)=> setDate(e.target.value)}
+                    onChange={(e) => setDate(e.target.value)}
                 />
             </div>
-            {/* 🚀 NOVO CAMPO: Horários Disponíveis em formato SELECT */}
             <div>
                 <label className="text-md font-medium text-gray-700" htmlFor="startTime">Horário Disponível</label>
                 <select

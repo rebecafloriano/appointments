@@ -5,9 +5,9 @@ export interface Doctor {
 } 
 
 export interface Appointment {
-    id: string | number
+    id: string
     patientName: string
-    doctorId: string | number
+    doctorId: string
     date: string
     startTime: string
     endTime: string

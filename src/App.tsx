@@ -3,7 +3,7 @@ import { AppointmentPanel } from './components/AppointmentPanel'
 import { generateTimeSlots } from './utils/timeUtils'
 import { type Doctor, type Appointment } from './types/clinic';
 import { useEffect, useState } from 'react';
-import { Key, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { dataAtual, dataAtualParaExibir } from './utils/dateUtils'
 import { db } from './config/firebase';
 import { collection, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
