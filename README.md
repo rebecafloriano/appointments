@@ -6,6 +6,19 @@
 
 ---
 
+## 🌐 Link do Projeto
+
+A versão estável e em produção da aplicação pode ser acedida diretamente através do link abaixo:
+
+🔗 **[Aceder ao Clinica Collab (Appointments Engine)](#)** *(Substitui este texto pelo link real do teu site no Vercel/Netlify/Firebase Hosting)*
+
+---
+
+## 📸 Demonstração da Interface
+
+![Painel de Agendamentos da Clínica Collab](assets/screen.png)
+
+---
 ## 🚀 Core Features
 
 ### 📅 Active Medical Grid Orchestration
@@ -73,11 +86,12 @@ src/
 ├── App.tsx                # Main entry orchestration engine syncing Firestore collections to active grid UI
 ├── index.css              # Global Tailwind CSS utility layers and structural canvas injections
 └── main.tsx               # System DOM mounting script
+```
 
 ---
 
 ## 📁 Source Code Blueprint Specifications
-Technical Contract Definition (src/types/clinic.ts)
+Technical Contract Definition `(src/types/clinic.ts)`
 
 ```
 export interface Doctor {
@@ -95,7 +109,8 @@ export interface Appointment {
     endTime: string;    // Auto-computed offset: HH:MM (+35 mins)
 }
 ```
-Pure Validation Systems (src/utils/timeUtils.ts)
+
+Pure Validation Systems `(src/utils/timeUtils.ts)`
 The scheduling timeline constructs deterministic array matrices through plain mathematical offsets:
 
 ```
@@ -103,23 +118,27 @@ let currentMinutes = 8 * 60; // Starts at 08:00
 const endMinutes = 18 * 60;  // Ends at 18:00
 // Increments consistently by +35 minutes per loop iteration
 ```
+
 ---
 
 ## 🔧 Installation & Initialization Guide
 
 1. Replicate Project Workspace
+
 ```
 git clone [https://github.com/your-username/clinica-collab.git](https://github.com/your-username/clinica-collab.git)
 cd clinica-collab
 ```
 
 2. Standard Dependency Deployment
+
 ```
 npm install
 ```
 
 3. Review Cloud Infrastructure Integration
-The connection layers communicate directly with active Firestore collection channels (medicos and agendamentos) using the cloud app configuration initialized in src/config/firebase.ts:
+The connection layers communicate directly with active Firestore collection channels (medicos and agendamentos) using the cloud app configuration initialized in `src/config/firebase.ts`:
+
 ```
 const firebaseConfig = {
     apiKey: "AIzaSyDLs1NOU3dkR9L-oNpzlPySD1sw0srSnOs",
@@ -131,8 +150,16 @@ const firebaseConfig = {
 };
 ```
 
+
 4. Boot Up Local Workspace
+
 ```
 npm run dev
 ```
-Navigate your browser to the local loopback proxy address output in your terminal shell (http://localhost:5173).
+
+Navigate your browser to the local loopback proxy address output in your terminal shell `(http://localhost:5173)`.
+
+## 📝 Licença
+Este projeto é um software de código aberto distribuído sob as condições da Licença MIT.
+
+Developed with 💻 and ☕ by Rebeca Erdman

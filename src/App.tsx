@@ -87,7 +87,7 @@ function App() {
   const totalColunas = 1 + (doctors.length * 2);
 
   return (
-    <div className="p-6 flex flex-col gap-8 bg-blue-200 min-h-screen">
+    <div className="p-6 flex flex-col gap-8 min-h-screen">
       <header className="flex justify-between items-center text-slate-700">
         <div className='flex items-center gap-2'>
           <img className='w-14' src={logo} alt="Clínica Collab" />
@@ -103,10 +103,10 @@ function App() {
 
       </header>
       <main className='grid grid-cols-3 gap-4'>
-        <section className='p-6 bg-gray-100 border border-blue-400 col-span-2 rounded-lg'>
+        <section className='p-6 bg-slate-300 col-span-2 rounded-lg shadow-sm'>
 
           <div className='flex justify-center gap-4 pb-4 text-center text-2xl'>
-            <h2>Agenda do Dia</h2>
+            <h2 className='text-2xl mb-2 self-center font-semibold text-gray-800'>Agenda do Dia</h2>
             <div className='flex gap-2 items-center bg-white border border-gray-300 p-1.5 rounded-md shadow-sm'>
 
               <input
@@ -155,7 +155,7 @@ function App() {
                     return (
                       < div
                         key={medico.id}
-                        className='px-4 items-center flex justify-between h-full bg-white border-gray-400 border-r border-b col-span-2'
+                        className='px-4 items-center flex justify-between h-full bg-slate-100 border-gray-400 border-r border-b col-span-2'
                       >
 
                         {
@@ -184,16 +184,11 @@ function App() {
                 </div>
               )
             })}
-
-
-
-
-
           </div>
         </section >
 
 
-        <section className='p-6 col-span-1 bg-white border border-blue-400  min-w-xs rounded-lg'>
+        <section className='p-6 col-span-1 bg-slate-400/50 min-w-xs rounded-lg shadow-sm'>
           <AppointmentPanel
             onSaveAppointment={handleSaveAppointment}
             appointments={appointments}

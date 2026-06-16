@@ -90,11 +90,11 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors }: A
 
     return (
         <form onSubmit={handleConfirm} className="flex flex-col gap-5">
-            <h2 className="text-xl mb-2 self-center font-semibold text-gray-800">Painel de Agendamento</h2>
+            <h2 className="text-2xl mb-2 self-center font-semibold text-gray-800">Painel de Agendamento</h2>
             <div>
                 <label className="text-md" htmlFor="patientName">Paciente</label>
                 <input
-                    className="p-1 w-full border border-gray-300 rounded-md"
+                    className="p-1 w-full bg-white rounded-md"
                     type="text"
                     value={patientName}
                     onChange={(e) => { setPatientName(e.target.value) }}
@@ -104,7 +104,7 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors }: A
             <div className="flex flex-col">
                 <label className="text-md" htmlFor="doctors">Médico</label>
                 <select
-                    className="p-1 w-full border border-gray-300 rounded-md"
+                    className="p-1 w-full border border-gray-300 bg-white rounded-md"
                     id="doctors"
                     value={selectedDoctorId}
                     onChange={(e) => setSelectedDoctorId(e.target.value)}
@@ -120,7 +120,7 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors }: A
             <div>
                 <label className="text-md" htmlFor="date">Data da Consulta</label>
                 <input
-                    className="p-1 text-slate-800 w-full border border-gray-300 rounded-md"
+                    className="p-1 text-slate-800 w-full border bg-white border-gray-300 rounded-md"
                     type="date"
                     id="date"
                     value={date}
@@ -130,7 +130,7 @@ export const AppointmentPanel = ({ onSaveAppointment, appointments, doctors }: A
             <div>
                 <label className="text-md font-medium text-gray-700" htmlFor="startTime">Horário Disponível</label>
                 <select
-                    className="p-1 w-full border border-gray-300 rounded-md text-slate-800 focus:outline-blue-500"
+                    className="p-1 w-full bg-white border border-gray-300 rounded-md text-slate-800 focus:outline-blue-500"
                     id="startTime"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
