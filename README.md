@@ -16,7 +16,7 @@ A versão estável e em produção da aplicação pode ser acedida diretamente a
 
 ## 📸 Demonstração da Interface
 
-![Painel de Agendamentos da Clínica Collab](assets/screen.png)
+![Painel de Agendamentos da Clínica Collab](src/assets/screen.png)
 
 ---
 ## 🚀 Core Features
@@ -162,4 +162,4 @@ Navigate your browser to the local loopback proxy address output in your termina
 ## 📝 Licença
 Este projeto é um software de código aberto distribuído sob as condições da Licença MIT.
 
-Developed with 💻 and ☕ by Rebeca Erdman
+Developed by Rebeca Erdman
