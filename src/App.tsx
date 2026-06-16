@@ -10,7 +10,7 @@ import { collection, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firesto
 
 function App() {
 
-  const [currentDate, setCurrentDate] = useState<string>(dataAtual);
+  const [currentDate, setCurrentDate] = useState<string>(dataAtual());
   const timeSlots = generateTimeSlots();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [doctors, setDoctors] = useState<Doctor[]>([])
@@ -83,11 +83,11 @@ function App() {
     }
 
   }
-  //Colunas dinamicas para quantos medicos for preciso
+  //Colunas dinamicas para quantos medicos forem necessario
   const totalColunas = 1 + (doctors.length * 2);
 
   return (
-    <div className="p-6 flex flex-col gap-8 bg-gray-400 min-h-screen">
+    <div className="p-6 flex flex-col gap-8 bg-blue-200 min-h-screen">
       <header className="flex justify-between items-center text-slate-700">
         <div className='flex items-center gap-2'>
           <img className='w-14' src={logo} alt="Clínica Collab" />
@@ -103,7 +103,7 @@ function App() {
 
       </header>
       <main className='grid grid-cols-3 gap-4'>
-        <section className='p-6 bg-gray-100 col-span-2 rounded-lg'>
+        <section className='p-6 bg-gray-100 border border-blue-400 col-span-2 rounded-lg'>
 
           <div className='flex justify-center gap-4 pb-4 text-center text-2xl'>
             <h2>Agenda do Dia</h2>
@@ -193,7 +193,7 @@ function App() {
         </section >
 
 
-        <section className='p-6 col-span-1 bg-white min-w-xs rounded-lg'>
+        <section className='p-6 col-span-1 bg-white border border-blue-400  min-w-xs rounded-lg'>
           <AppointmentPanel
             onSaveAppointment={handleSaveAppointment}
             appointments={appointments}
