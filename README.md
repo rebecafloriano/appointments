@@ -10,7 +10,7 @@
 
 A versão estável e em produção da aplicação pode ser acedida diretamente através do link abaixo:
 
-🔗 **[Aceder ao Clinica Collab (Appointments Engine)](#)** *(Substitui este texto pelo link real do teu site no Vercel/Netlify/Firebase Hosting)*
+🔗 **[Aceder ao Clinica Collab (Appointments Engine)](#)** *https://appointments-five-flame.vercel.app/*
 
 ---
 
