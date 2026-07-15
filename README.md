@@ -159,7 +159,7 @@ npm run dev
 
 Navigate your browser to the local loopback proxy address output in your terminal shell `(http://localhost:5173)`.
 
-## 📝 Licença
-Este projeto é um software de código aberto distribuído sob as condições da Licença MIT.
+## 📝 License
+This project is open-source software distributed under the terms of the MIT License.
 
 Developed by Rebeca Erdman
