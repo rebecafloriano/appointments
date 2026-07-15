@@ -126,8 +126,8 @@ const endMinutes = 18 * 60;  // Ends at 18:00
 1. Replicate Project Workspace
 
 ```
-git clone [https://github.com/your-username/clinica-collab.git](https://github.com/your-username/clinica-collab.git)
-cd clinica-collab
+git clone [https://github.com/rebecafloriano/appointments.git](https://github.com/rebecafloriano/appointments.git)
+cd appointments
 ```
 
 2. Standard Dependency Deployment
@@ -141,12 +141,12 @@ The connection layers communicate directly with active Firestore collection chan
 
 ```
 const firebaseConfig = {
-    apiKey: "AIzaSyDLs1NOU3dkR9L-oNpzlPySD1sw0srSnOs",
-    authDomain: "clinica-collab.firebaseapp.com",
-    projectId: "clinica-collab",
-    storageBucket: "clinica-collab.firebasestorage.app",
-    messagingSenderId: "12081009495",
-    appId: "1:12081009495:web:9e3655407f0fb1f74ba412"
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.firebasestorage.app",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 ```
 
